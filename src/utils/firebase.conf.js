@@ -1,10 +1,10 @@
 import { createRequire } from "node:module";
+import { getApps } from "firebase-admin/app";
 import { credential } from "firebase-admin";
 import * as admin from "firebase-admin";
 
 const require = createRequire(import.meta.url)
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   credential: credential.cert(require(process.env.GOOGLE_APPLICATION_CREDENTIALS)),
   apiKey: process.env.FIREBASE_API_KEY,
@@ -15,6 +15,11 @@ const firebaseConfig = {
   appId: process.env.FIREBASE_APP_ID
 };
 
-const app = admin.initializeApp(firebaseConfig);
+const alreadyCreatedApp = getApps();
+
+const app = 
+  alreadyCreatedApp.length === 0
+    ? admin.initializeApp(firebaseConfig)
+    : alreadyCreatedApp[0];
 
 export const db = app.firestore();

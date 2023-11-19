@@ -7,9 +7,9 @@ export default async function sendEmail(
 ){
    "use server";
    return mailCollection.add({
-      to: ["jesus.yacolca17@gmail.com"],
-      name: name,
       from: email,
+      name: name,
+      to: ["jesus.yacolca17@gmail.com"],
       message: {
          subject: subject,
          html: message
