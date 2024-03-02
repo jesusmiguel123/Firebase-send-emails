@@ -9,7 +9,7 @@ export default async function sendEmail(
    return mailCollection.add({
       from: email,
       name: name,
-      to: ["jesus.yacolca17@gmail.com"],
+      to: [email],
       message: {
          subject: subject,
          html: message
